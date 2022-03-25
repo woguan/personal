@@ -1,4 +1,41 @@
-<meta http-equiv="refresh" content="time; URL=https://www.google.com" />
+ <!DOCTYPE html>
+<html>
+<body>
+
+<h2>Redirect to a Webpage</h2>
+<p>The replace() method replaces the current document with a new one:</p>
+
+<button onclick="myFunction()">Replace document</button>
+<button onclick="httpGetAsync(test)">Replace2 document</button>
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+// location.replace(i.src)
+}
+
+function test(something) {
+location.replace(something);
+document.getElementById("demo").innerHTML = something;
+console.log(something);
+} 
+
+function httpGetAsync(callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    var theUrl = "https://raw.githubusercontent.com/woguan/personal/master/hostname.txt";
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+httpGetAsync(test);
+</script>
+
+</body>
+</html> 
 
 
-this has been updated
