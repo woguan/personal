@@ -3,36 +3,39 @@
 <body>
 
 <h2>Redirect to a Webpage</h2>
-<p>The replace() method replaces the current document with a new one:</p>
 
-<button onclick="myFunction()">Replace document</button>
-<button onclick="httpGetAsync(test)">Replace2 document</button>
+<button onclick="httpGetAsync('history', redirect)">Check history</button> <p></p>
+
+<button onclick="httpGetAsync('phone', redirect)">Find Phone</button> <p></p>
 <p id="demo"></p>
 
 <script>
-function myFunction() {
-// location.replace(i.src)
+
+function redirect(something) {
+    location.replace(something);
+    console.log(something);
 }
 
-function test(something) {
-location.replace(something);
-document.getElementById("demo").innerHTML = something;
-console.log(something);
-} 
+function dummy(something) {
+    document.getElementById("demo").innerHTML = something;
+}
 
-function httpGetAsync(callback)
+function httpGetAsync(action, callback)
 {
     var xmlHttp = new XMLHttpRequest();
+    var path = "/"+action;
     var theUrl = "https://raw.githubusercontent.com/woguan/personal/master/hostname.txt";
     xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            const url = xmlHttp.responseText.trim()+path;
+            callback(url);
+        }
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
     xmlHttp.send(null);
 }
 
-httpGetAsync(test);
+httpGetAsync("", dummy);
 </script>
 
 </body>
